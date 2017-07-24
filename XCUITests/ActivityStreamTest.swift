@@ -36,7 +36,7 @@ class ActivityStreamTest: BaseTestCase {
         let numberOfTopSites = topSites.cells.matching(identifier: "TopSite").count
 
         loadWebPage("http://example.com")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
@@ -52,7 +52,7 @@ class ActivityStreamTest: BaseTestCase {
         let numberOfTopSites = topSites.cells.matching(identifier: "TopSite").count
 
         loadWebPage("http://example.com")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
@@ -93,7 +93,7 @@ class ActivityStreamTest: BaseTestCase {
 
         navigator.nowAt(NewTabScreen)
         navigator.openURL(urlString: newTopSite["url"]!)
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
@@ -128,7 +128,7 @@ class ActivityStreamTest: BaseTestCase {
         let app = XCUIApplication()
 
         loadWebPage("http://example.com")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
@@ -140,7 +140,7 @@ class ActivityStreamTest: BaseTestCase {
         XCTAssertFalse(app.staticTexts["example"].exists)
 
         app.buttons["Cancel"].tap()
-        if isiPad() == true {
+        if iPad() {
             app.buttons["TopTabsViewController.tabsButton"].tap()
         } else {
             app.buttons["URLBarView.tabsButton"].tap()
@@ -162,11 +162,7 @@ class ActivityStreamTest: BaseTestCase {
         selectOptionFromContextMenu (option: "Open in New Tab")
 
         // Check that two tabs are open and one of them is the default top site one
-        if isiPad() == true {
-            app.buttons["TopTabsViewController.tabsButton"].tap()
-        } else {
-            navigator.goto(TabTray)
-        }
+        navigator.goto(TabTray)
         waitforExistence(app.collectionViews.cells[defaultTopSite["bookmarkLabel"]!])
         let numTabsOpen = app.collectionViews.cells.count
         XCTAssertEqual(numTabsOpen, 2, "New tab not open")
@@ -176,7 +172,7 @@ class ActivityStreamTest: BaseTestCase {
         let app = XCUIApplication()
 
         loadWebPage("http://example.com")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
@@ -190,7 +186,7 @@ class ActivityStreamTest: BaseTestCase {
         XCTAssertFalse(app.staticTexts["example"].exists)
         
         app.buttons["Cancel"].tap()
-        if isiPad() == true {
+        if iPad() {
             app.buttons["TopTabsViewController.tabsButton"].tap()
         } else {
             app.buttons["URLBarView.tabsButton"].tap()
@@ -209,12 +205,7 @@ class ActivityStreamTest: BaseTestCase {
         selectOptionFromContextMenu (option: "Open in New Private Tab")
 
         // Check that two tabs are open and one of them is the default top site one
-        if isiPad() == true {
-            app.buttons["Private Mode"].tap()
-            app.buttons["TopTabsViewController.tabsButton"].tap()
-        } else {
-            navigator.goto(PrivateTabTray)
-        }
+        navigator.goto(PrivateTabTray)
         waitforExistence(app.collectionViews.cells[defaultTopSite["bookmarkLabel"]!])
         let numTabsOpen = app.collectionViews.cells.count
         XCTAssertEqual(numTabsOpen, 1, "New tab not open")
@@ -244,7 +235,7 @@ class ActivityStreamTest: BaseTestCase {
     func testTopSitesBookmarkNewTopSite () {
         // Bookmark a new TopSite
         navigator.openURL(urlString: newTopSite["url"]!)
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
@@ -271,16 +262,12 @@ class ActivityStreamTest: BaseTestCase {
     }
 
     func testTopSitesShareDefaultTopSite () {
-        if isiPad() == true {
-            app.textFields["url"].tap()
-        } else {
-            navigator.goto(NewTabScreen)
-        }
+        navigator.goto(NewTabScreen)
         app.collectionViews.cells["TopSitesCell"].cells[defaultTopSite["topSiteLabel"]!].press(forDuration: 1)
 
         // Tap on Share option and verify that the menu is shown and it is possible to cancel it
         selectOptionFromContextMenu (option: "Share")
-        if isiPad() == false {
+        if !iPad() {
             app.buttons["Cancel"].tap()
         }
     }
@@ -288,13 +275,12 @@ class ActivityStreamTest: BaseTestCase {
     func testTopSitesShareNewTopSite () {
         navigator.openURL(urlString: newTopSite["url"]!)
         navigator.goto(NewTabScreen)
-        
         waitforExistence(app.collectionViews.cells["TopSitesCell"].cells[newTopSite["topSiteLabel"]!])
         app.collectionViews.cells["TopSitesCell"].cells[newTopSite["topSiteLabel"]!].press(forDuration: 1)
 
         // Tap on Share option and verify that the menu is shown and it is possible to cancel it....
         selectOptionFromContextMenu (option: "Share")
-        if isiPad() == false {
+        if !iPad() {
             app.buttons["Cancel"].tap()
         }
     }
@@ -311,34 +297,34 @@ class ActivityStreamTest: BaseTestCase {
         XCTAssertFalse(pagecontrolButton.exists, "The Page Control button must not exist. Only 5 elements should be on the page")
 
         loadWebPage("http://example.com")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
         }
 
         loadWebPage("http://mozilla.org")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
         }
 
         loadWebPage("http://apple.com")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
         }
 
         loadWebPage("http://yahoo.com")
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
         }
 
-        if isiPad() == true {
+        if iPad() {
             loadWebPage("http://cvs.com")
             app.buttons["URLBarView.backButton"].tap()
 
@@ -357,7 +343,7 @@ class ActivityStreamTest: BaseTestCase {
 
         app.textFields["url"].tap()
 
-        if isiPad() == true {
+        if iPad() {
             XCTAssert(pagecontrolButton.exists, "The Page Control button must exist if more than 13 elements are displayed.")
         } else {
             XCTAssert(pagecontrolButton.exists, "The Page Control button must exist if more than 9 elements are displayed.")

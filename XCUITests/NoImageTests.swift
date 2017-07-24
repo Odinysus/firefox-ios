@@ -54,7 +54,7 @@ class NoImageTests: BaseTestCase {
         
         // Go to a webpage, and select no images or hide images, check it's hidden or not
         navigator.openNewURL(urlString: url1)
-        if isiPad() == true {
+        if iPad() {
             XCTAssertTrue(app.images.count == 3)
         } else {
             XCTAssertTrue(app.images.count == 2)
@@ -62,7 +62,7 @@ class NoImageTests: BaseTestCase {
         hideImages()
         
         //After image is hidden, only image detected is the lock icon in the UI
-        if isiPad() == true {
+        if iPad() {
             XCTAssertTrue(app.images.count == 2)
         } else {
             XCTAssertTrue(app.images.count == 1)
@@ -74,7 +74,7 @@ class NoImageTests: BaseTestCase {
         
         // Open it, then select show images it, and check it's showing the images
         showImages()
-        if isiPad() == true {
+        if iPad() {
             XCTAssertTrue(app.images.count == 3)
         } else {
             XCTAssertTrue(app.images.count == 2)

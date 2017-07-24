@@ -41,28 +41,19 @@ class PrivateBrowsingTest: BaseTestCase {
         XCTAssertEqual(history, 1, "History entries in regular browsing do not match")
         
         // Go to Private browsing to open a website and check if it appears on History
-        if isiPad() == true {
-            app.buttons["TopTabsViewController.tabsButton"].tap()
-            app.buttons["TabTrayController.maskButton"].tap()
-            app.buttons["TabTrayController.addTabButton"].tap()
-        } else {
-            navigator.goto(NewPrivateTabScreen)
-            navigator.goto(PrivateTabTray)
-        }
+        navigator.goto(NewPrivateTabScreen)
+        navigator.goto(PrivateTabTray)
         navigator.openURL(urlString: url2)
         navigator.nowAt(PrivateBrowserTab)
         waitForValueContains(app.textFields["url"], value: "facebook")
         navigator.goto(BrowserTabMenu)
         waitforExistence(app.toolbars.buttons["HistoryMenuToolbarItem"])
         app.toolbars.buttons["HistoryMenuToolbarItem"].tap()
-        
-        // Open one tab in private browsing and check the total number of tabs
-        
         waitforExistence(app.tables["History List"])
         XCTAssertTrue(app.tables["History List"].staticTexts[url1Label].exists)
         XCTAssertFalse(app.tables["History List"].staticTexts[url2Label].exists)
+
         // Open one tab in private browsing and check the total number of tabs
-        
         let privateHistory = app.tables["History List"].cells.count - 2
         XCTAssertEqual(privateHistory, 1, "History entries in private browsing do not match")
     }
@@ -70,7 +61,7 @@ class PrivateBrowsingTest: BaseTestCase {
     func testTabCountShowsOnlyNormalOrPrivateTabCount() {
         // Open two tabs in normal browsing and check the number of tabs open
         navigator.openNewURL(urlString: url1)
-        if isiPad() == true {
+        if iPad() {
             app.buttons["TopTabsViewController.tabsButton"].tap()
             app.buttons["TabTrayController.addTabButton"].tap()
             app.buttons["TopTabsViewController.tabsButton"].tap()
@@ -85,7 +76,7 @@ class PrivateBrowsingTest: BaseTestCase {
         XCTAssertEqual(numTabs, 2, "The number of regular tabs is not correct")
 
         // Open one tab in private browsing and check the total number of tabs
-        if isiPad() == true {
+        if iPad() {
             app.buttons["TabTrayController.maskButton"].tap()
             app.buttons["TabTrayController.addTabButton"].tap()
         } else {
@@ -95,7 +86,7 @@ class PrivateBrowsingTest: BaseTestCase {
         navigator.nowAt(PrivateBrowserTab)
         waitForValueContains(app.textFields["url"], value: "facebook")
 
-        if isiPad() == true {
+        if iPad() {
             app.buttons["TopTabsViewController.tabsButton"].tap()
         } else {
             navigator.goto(PrivateTabTray)
@@ -106,7 +97,7 @@ class PrivateBrowsingTest: BaseTestCase {
         XCTAssertEqual(numPrivTabs, 1, "The number of private tabs is not correct")
 
         // Go back to regular mode and check the total number of tabs
-        if isiPad() == true {
+        if iPad() {
             app.buttons["TabTrayController.maskButton"].tap()
 
         } else {
@@ -129,7 +120,7 @@ class PrivateBrowsingTest: BaseTestCase {
         XCTAssertFalse(closePrivateTabsSwitch.isSelected)
 
         // Open a Private tab
-        if isiPad() == true {
+        if iPad() {
             app.buttons["Done"].tap()
             app.buttons["TopTabsViewController.tabsButton"].tap()
             app.buttons["TabTrayController.maskButton"].tap()
@@ -163,7 +154,7 @@ class PrivateBrowsingTest: BaseTestCase {
 
         // Now the enable the Close Private Tabs when closing the Private Browsing Button
        
-        if isiPad() == true {
+        if iPad() {
             app.buttons["TabTrayController.menuButton"].tap()
             app.collectionViews.cells["SettingsMenuItem"].tap()
         } else {
@@ -172,7 +163,7 @@ class PrivateBrowsingTest: BaseTestCase {
         closePrivateTabsSwitch.tap()
 
         // Go back to regular browsing and check that the private tab has been closed and that the initial Private Browsing message appears when going back to Private Browsing
-        if isiPad() {
+        if iPad() {
             app.navigationBars["Settings"].buttons["AppSettingsTableViewController.navigationItem.leftBarButtonItem"].tap()
             let tabtraycontrollerMaskbuttonButton = app.buttons["TabTrayController.maskButton"]
             tabtraycontrollerMaskbuttonButton.tap()
@@ -191,40 +182,21 @@ class PrivateBrowsingTest: BaseTestCase {
 
     func testPrivateBrowserPanelView() {
         // If no private tabs are open, there should be a initial screen with label Private Browsing
-        if isiPad() == true {
-            app.scrollViews["IntroViewController.scrollView"].swipeLeft()
-            app.buttons["Start Browsing"].tap()
-            app.buttons["TopTabsViewController.tabsButton"].tap()
-            app.buttons["TabTrayController.maskButton"].tap()
-        } else {
-            navigator.goto(PrivateTabTray)
-        }
+        navigator.goto(PrivateTabTray)
 
         XCTAssertTrue(app.staticTexts["Private Browsing"].exists, "Private Browsing screen is not shown")
         let numPrivTabsFirstTime = app.collectionViews.cells.count
         XCTAssertEqual(numPrivTabsFirstTime, 0, "The number of tabs is not correct, there should not be any private tab yet")
 
         // If a private tab is open Private Browsing screen is not shown anymore
-        if isiPad() == true {
-            app.buttons["TabTrayController.addTabButton"].tap()
-        } else {
-            navigator.goto(NewPrivateTabScreen)
-        }
+        navigator.goto(NewPrivateTabScreen)
 
         // Go to regular browsing
-        if isiPad() == true {
-            app.buttons["TopTabsViewController.tabsButton"].tap()
-            app.buttons["TabTrayController.maskButton"].tap()
-        } else {
-            navigator.goto(TabTray)
-        }
+        navigator.goto(TabTray)
 
         // Go back to private brosing
-        if isiPad() == true {
-            app.buttons["TabTrayController.maskButton"].tap()
-        } else {
-            navigator.goto(PrivateTabTray)
-        }
+        navigator.goto(PrivateTabTray)
+        
         XCTAssertFalse(app.staticTexts["Private Browsing"].exists, "Private Browsing screen is shown")
         let numPrivTabsOpen = app.collectionViews.cells.count
         XCTAssertEqual(numPrivTabsOpen, 1, "The number of tabs is not correct, there should be one private tab")

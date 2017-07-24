@@ -36,7 +36,7 @@ class CompactModeUITests: BaseTestCase {
     }
     
     func testCompactModeUI() {
-        if isiPad() == false {
+        if !iPad() {
             //Dsimiss intro screen
             dismissFirstRunUI()
             

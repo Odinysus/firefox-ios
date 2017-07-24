@@ -72,7 +72,7 @@ class BaseTestCase: XCTestCase {
         }
     }
     
-    func isiPad() -> Bool {
+    func iPad() -> Bool {
         if (UIDevice.current.userInterfaceIdiom == .pad){
             return true
         }

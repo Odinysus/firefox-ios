@@ -56,7 +56,7 @@ class ClipBoardTests: BaseTestCase {
         app.scrollViews["IntroViewController.scrollView"].swipeLeft()
         app.buttons["IntroViewController.startBrowsingButton"].tap()
         
-        if isiPad() == true {
+        if iPad() {
             app.textFields["url"].tap()
             app.textFields["address"].press(forDuration: 1.7)
             app.menuItems["Paste"].tap()

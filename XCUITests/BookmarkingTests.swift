@@ -53,20 +53,12 @@ class BookmarkingTests: BaseTestCase {
         
         // Load a different page on a new tab, check it's not bookmarked
         //navigator.goto(NewTabScreen)
-        if isiPad() == true {
-            app.buttons["New Tab"].tap()
-            navigator.openURL(urlString: url2)
-        } else {
-            navigator.openNewURL(urlString: url2)
-        }
+        navigator.openNewURL(urlString: url2)
+
         checkUnbookmarked()
         
         // Go back, check it's still bookmarked, check it's on bookmarks home panel
-        if isiPad() == true {
-            app.buttons["TopTabsViewController.tabsButton"].tap()
-        } else {
-            navigator.goto(TabTray)
-        }
+        navigator.goto(TabTray)
         app.collectionViews.cells["Google"].tap()
         navigator.nowAt(BrowserTab)
         checkBookmarked()

@@ -116,7 +116,7 @@ class SearchTests: BaseTestCase {
         waitForValueContains(app.textFields["url"], value: "https://www.mozilla.org/")
         
         // Go back, write part of moz, check the autocompletion
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()

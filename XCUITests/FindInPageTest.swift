@@ -86,11 +86,7 @@ class FindInPageTests: BaseTestCase {
 
         // Going to tab tray and back to the website hides the search field.
         navigator.nowAt(BrowserTab)
-        if isiPad() == true {
-            app.buttons["TopTabsViewController.tabsButton"].tap()
-        } else {
-            navigator.goto(TabTray)
-        }
+        navigator.goto(TabTray)
 
         waitforExistence(app.collectionViews.cells["The Book of Mozilla"])
         app.collectionViews.cells["The Book of Mozilla"].tap()

@@ -26,7 +26,7 @@ class ThirdPartySearchTest: BaseTestCase {
     }
 
     func testCustomSearchEngines() {
-        if isiPad() == false {
+        if !iPad() {
             let app = XCUIApplication()
             
             // Visit MDN to add a custom search engine
@@ -52,7 +52,7 @@ class ThirdPartySearchTest: BaseTestCase {
     }
 
     func testCustomSearchEngineAsDefault() {
-        if isiPad() == false {
+        if !iPad() {
             
             let app = XCUIApplication()
             
@@ -89,7 +89,7 @@ class ThirdPartySearchTest: BaseTestCase {
     }
 
     func testCustomSearchEngineDeletion() {
-        if isiPad() == false {
+        if !iPad() {
             let app = XCUIApplication()
             
             // Visit MDN to add a custom search engine

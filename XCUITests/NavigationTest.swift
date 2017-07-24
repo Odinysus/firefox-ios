@@ -31,7 +31,7 @@ class NavigationTest: BaseTestCase {
 
         // Check the url placeholder text and that the back and forward buttons are disabled
         XCTAssert(urlPlaceholder == defaultValuePlaceholder)
-        if isiPad() == true {
+        if iPad() {
             app.buttons["Cancel"].tap()
             XCTAssertFalse(app.buttons["URLBarView.backButton"].isEnabled)
             XCTAssertFalse(app.buttons["Forward"].isEnabled)
@@ -44,7 +44,7 @@ class NavigationTest: BaseTestCase {
         // Once an url has been open, the back button is enabled but not the forward button
         navigator.openURL(urlString: website_1["url"]!)
         waitForValueContains(app.textFields["url"], value: website_1["value"]!)
-        if isiPad() == true {
+        if iPad() {
             XCTAssertTrue(app.buttons["URLBarView.backButton"].isEnabled)
             XCTAssertFalse(app.buttons["Forward"].isEnabled)
         } else {
@@ -55,7 +55,7 @@ class NavigationTest: BaseTestCase {
         // Once a second url is open, back button is enabled but not the forward one till we go back to url_1
         navigator.openURL(urlString:  website_2["url"]!)
         waitForValueContains(app.textFields["url"], value: website_2["value"]!)
-        if isiPad() == true {
+        if iPad() {
             XCTAssertTrue(app.buttons["URLBarView.backButton"].isEnabled)
             XCTAssertFalse(app.buttons["Forward"].isEnabled)
             // Go back to previous visited web site
@@ -69,7 +69,7 @@ class NavigationTest: BaseTestCase {
 
         waitForValueContains(app.textFields["url"], value: website_1["value"]!)
 
-        if isiPad() == true {
+        if iPad() {
             app.buttons["Forward"].tap()
         } else {
             // Go forward to next visited web site
@@ -128,11 +128,7 @@ class NavigationTest: BaseTestCase {
     }
 
     func testScrollsToTopWithMultipleTabs() {
-        if isiPad() == true {
-            navigator.goto(NewTabScreen)
-        } else {
-            navigator.goto(TabTray)
-        }
+        navigator.goto(TabTray)
         navigator.openURL(urlString: website_1["url"]!)
         waitForValueContains(app.textFields["url"], value: website_1["value"]!)
 
@@ -144,7 +140,7 @@ class NavigationTest: BaseTestCase {
 
         // Scroll to bottom
         bottomElement.tap()
-        if isiPad() == true {
+        if iPad() {
             app.buttons["URLBarView.backButton"].tap()
         } else {
             app.buttons["TabToolbar.backButton"].tap()
