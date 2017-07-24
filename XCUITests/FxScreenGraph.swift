@@ -280,10 +280,10 @@ func createScreenGraph(_ app: XCUIApplication, url: String = "https://www.mozill
         scene.tap(app.textFields["url"], to: URLBarOpen)
         scene.tap(app.buttons["TabToolbar.menuButton"], to: BrowserTabMenu)
         if map.isiPad() {
-            scene.tap(app.buttons["TopTabsViewController.tabsButton"], to: TabTray)
+            scene.tap(app.buttons["TopTabsViewController.tabsButton"], to: PrivateTabTray)
         }
         else {
-            scene.tap(app.buttons["URLBarView.tabsButton"], to: TabTray)
+            scene.tap(app.buttons["URLBarView.tabsButton"], to: PrivateTabTray)
         }
     }
 
